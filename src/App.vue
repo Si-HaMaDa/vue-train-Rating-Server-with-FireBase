@@ -1,6 +1,8 @@
 <template>
-    <learning-survey @survey-submit="storeSurvey"></learning-survey>
-    <user-experiences :results="savedSurveyResults"></user-experiences>
+    <learning-survey
+        @reloadRatings="reloadRatings = !reloadRatings"
+    ></learning-survey>
+    <user-experiences :reloadRatings="reloadRatings"></user-experiences>
 </template>
 
 <script>
@@ -14,20 +16,10 @@ export default {
     },
     data() {
         return {
-            savedSurveyResults: [],
+            reloadRatings: false,
         };
     },
-    methods: {
-        storeSurvey(surveyData) {
-            const surveyResult = {
-                name: surveyData.userName,
-                rating: surveyData.rating,
-                id: new Date().toISOString(),
-            };
-            this.savedSurveyResults.unshift(surveyResult);
-            console.log(surveyResult);
-        },
-    },
+    methods: {},
 };
 </script>
 
@@ -42,5 +34,14 @@ html {
 
 body {
     margin: 0;
+}
+
+.text-error::before {
+    content: "*";
+}
+
+.text-error {
+    color: red;
+    font-weight: 600;
 }
 </style>
